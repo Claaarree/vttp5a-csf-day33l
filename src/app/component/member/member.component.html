@@ -1,0 +1,64 @@
+<p>member works!</p>
+
+{{ memberForm.value | json }}
+
+<form [formGroup]="memberForm" (ngSubmit)="handleSubmit()">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <td>
+                    <input type="text" formControlName="name">
+                </td>
+                @if (memberForm.get('name')?.invalid) {
+                    <td class="text-danger">
+                        Please enter your name!
+                    </td>
+                }
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>
+                    <input type="email" formControlName="email">
+                </td>
+                @if (memberForm.get('email')?.invalid) {
+                    <td class="text-danger">
+                        Please enter your email!
+                    </td>
+                }
+            </tr>
+            <tr>
+                <th>Phone</th>
+                <td>
+                    <input type="text" formControlName="mobileNo">
+                </td>
+                @if (memberForm.get('mobileNo')?.invalid) {
+                    <td class="text-danger">
+                        Please enter your phone number!
+                    </td>
+                }
+            </tr>
+            <tr></tr>
+        </thead>
+        <tbody formArrayName="hobbies">
+            <tr>
+                <th>Hobbies</th>
+                <td>
+                    <button (click)="addHobby()">Add Hobby</button>
+                </td>
+            </tr>
+            @for (h of hobbies.controls; let idx= $index; track idx) {
+                <tr [formGroupName]="idx">
+                    <th>{{ idx + 1}}</th>
+                    <td>
+                        <input type="text" formControlName="hobby">
+                    </td>
+                    <td>
+                        <button (click)="removeHobby(idx)">Remove</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <button type="submit">Submit</button>
+</form>
