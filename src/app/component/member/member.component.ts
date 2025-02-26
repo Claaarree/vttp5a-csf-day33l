@@ -37,6 +37,8 @@ export class MemberComponent implements OnInit{
   protected removeHobby(i: number) {
     console.log(i)
     this.hobbies.removeAt(i)
+    // line below is to fix weird removing problem
+    this.memberForm.setControl("hobbies", this.hobbies)
   }
 
   protected handleSubmit() {
